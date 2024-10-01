@@ -4,11 +4,13 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import Alert from "../../components/Alert.jsx";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 function WorkoutPlanForm() {
   const [errorMessage, setErrorMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
   const auth = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -58,6 +60,10 @@ function WorkoutPlanForm() {
       }
       console.log("Profile successful");
       setSuccessMessage(message);
+      reset();
+      setTimeout(() => {
+        navigate(`/dashboard?tab=workoutPlanShow&workoutPlanId=${data._id}`);
+      }, 1500);
     } catch (error) {
       setErrorMessage("Network error. Please try again later.");
       console.error("Profile Error: ", error);
