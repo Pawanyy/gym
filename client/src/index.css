@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+select:not([size]){
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 10 6'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right .75rem center;
+    background-repeat: no-repeat;
+    background-size: .75em .75em;
+    padding-right: 2.5rem;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+/* tableStyles.css */
+.table-custom {
+  @apply min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900;
+  max-width: 100%; /* Ensure the table does not exceed the container's width */
+  overflow: hidden; /* Prevent overflow */
+}
+
+.table-custom thead {
+  @apply text-left;
+}
+  
+.table-custom thead tr th {
+  @apply whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white;
+}
+  
+.table-custom tbody {
+  @apply divide-y divide-gray-200 dark:divide-gray-700;
+}
+  
+.table-custom tbody tr {
+  @apply odd:bg-gray-50 dark:odd:bg-gray-800/50;
+}
+
+.table-custom tbody td {
+  @apply  px-4 py-2 font-medium text-gray-900 dark:text-white;
+}
