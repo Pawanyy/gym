@@ -40,6 +40,7 @@ const workoutSchema = new mongoose.Schema({
         enum: ['easy', 'medium', 'hard'],
         required: true,
     },
+    image: { type: String, default: null },
     instructions: {
         type: String,
     },

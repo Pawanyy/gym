@@ -7,6 +7,7 @@ import Alert from "../../components/Alert.jsx";
 import Pagination from "../../components/Pagination.jsx";
 import ConfirmModal from "../../components/ConfirmModal.jsx";
 import { Link } from "react-router-dom";
+import noImage from "./../../assets/noImage.png";
 
 function Workout() {
   const [isConfirmModalOpen, setConfirmModalOpen] = useState(false);
@@ -151,6 +152,7 @@ function Workout() {
               <tr>
                 <th>Sr No</th>
                 <th>Name & Description</th>
+                <th>Image</th>
                 <th>Muscles</th>
                 <th>Duration</th>
                 <th>Sets X Reps</th>
@@ -171,6 +173,12 @@ function Workout() {
                       <p className="text-gray-500 dark:text-gray-300">
                         {record.description}
                       </p>
+                    </td>
+                    <td>
+                      <img
+                        src={record?.image ? record.image : noImage}
+                        alt="Workout Image"
+                      />
                     </td>
                     <td className="text-nowrap">
                       {record.muscles.map((m, i) => (

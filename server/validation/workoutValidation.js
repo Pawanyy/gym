@@ -16,6 +16,19 @@ const createWorkoutSchema = Joi.object({
             'string.empty': 'Description is required.',
             'any.required': 'Description is required.',
         }),
+    image: Joi.string().optional().custom((value, helpers) => {
+        // Regular expression to check if it's a valid URL
+        const urlRegex = /^(http|https):\/\/[^\s$.?#].[^\s]*$/;
+        // Regular expression to check if it's a valid Base64 string
+        const base64Regex = /^data:image\/(png|jpeg|jpg|gif);base64,[A-Za-z0-9+/]+={0,2}$/;
+
+        if (urlRegex.test(value) || base64Regex.test(value)) {
+            return value; // Valid, return the original value
+        }
+        return helpers.error('any.invalid', { message: 'Image must be a valid URL or Base64 encoded string' });
+    }).messages({
+        'any.invalid': 'Image must be a valid URL or Base64 encoded string',
+    }),
     muscles: Joi.array()
         .items(Joi.string().valid(...appConfig.muscleEnums))
         .required()
@@ -66,6 +79,19 @@ const updateWorkoutSchema = Joi.object({
         .messages({
             'string.base': 'Description must be a string.',
         }),
+    image: Joi.string().optional().custom((value, helpers) => {
+        // Regular expression to check if it's a valid URL
+        const urlRegex = /^(http|https):\/\/[^\s$.?#].[^\s]*$/;
+        // Regular expression to check if it's a valid Base64 string
+        const base64Regex = /^data:image\/(png|jpeg|jpg|gif);base64,[A-Za-z0-9+/]+={0,2}$/;
+
+        if (urlRegex.test(value) || base64Regex.test(value)) {
+            return value; // Valid, return the original value
+        }
+        return helpers.error('any.invalid', { message: 'Image must be a valid URL or Base64 encoded string' });
+    }).messages({
+        'any.invalid': 'Image must be a valid URL or Base64 encoded string',
+    }),
     muscles: Joi.array()
         .items(Joi.string().valid(...appConfig.muscleEnums))
         .messages({

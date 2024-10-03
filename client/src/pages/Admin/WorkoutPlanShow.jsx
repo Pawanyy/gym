@@ -98,7 +98,7 @@ function WorkoutPlanShow() {
                   <td>{workoutPlanData.duration} min</td>
                   <td>{workoutPlanData.exercises.length}</td>
                   <td className="capitalize">{workoutPlanData.workoutType}</td>
-                  <td>
+                  <td className="capitalize">
                     {workoutPlanData?.targetMuscles.map((m, i) => (
                       <p key={i}>
                         {i + 1}. {m}
@@ -121,6 +121,7 @@ function WorkoutPlanShow() {
                 <th>Duration</th>
                 <th>Sets X Reps</th>
                 <th>Diffculty</th>
+                <th>Muscles</th>
                 <th>Instructions</th>
                 <th>Created Date</th>
               </tr>
@@ -137,18 +138,18 @@ function WorkoutPlanShow() {
                         {record.description}
                       </p>
                     </td>
-                    <td className="text-nowrap">
+                    <td>{record.duration} min</td>
+                    <td>
+                      {record.sets} X {record.reps}
+                    </td>
+                    <td className="capitalize">{record.difficulty}</td>
+                    <td className="text-nowrap capitalize">
                       {record.muscles.map((m, i) => (
                         <p key={i}>
                           {i + 1}. {m}
                         </p>
                       ))}
                     </td>
-                    <td>{record.duration} min</td>
-                    <td>
-                      {record.sets} X {record.reps}
-                    </td>
-                    <td className="capitalize">{record.difficulty}</td>
                     <td>{record.instructions}</td>
                     <td>{new Date(record.createdAt).toLocaleString()}</td>
                   </tr>

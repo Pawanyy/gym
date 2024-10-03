@@ -18,6 +18,7 @@ const muscleoptions = appConstants.MUSCLE_ENUMS.map((value) => ({
 }));
 
 function WorkoutForm() {
+  const [imagePreview, setImagePreview] = useState(null);
   const [editData, setEditData] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   const [successMessage, setSuccessMessage] = useState(false);
@@ -86,6 +87,10 @@ function WorkoutForm() {
           })
           .filter(Boolean);
 
+        if (data.image) {
+          setImagePreview(data.image);
+        }
+
         reset({
           ...data,
           difficulty: selectedDifficulty,
@@ -121,6 +126,10 @@ function WorkoutForm() {
 
       if (typeof formData?.muscles === "string") {
         payload.muscles = formData.muscles.split(",")?.map((m) => m?.trim());
+      }
+
+      if (formData?.image === null) {
+        delete payload["image"];
       }
 
       const response = await axios[method](
@@ -164,6 +173,32 @@ function WorkoutForm() {
           "Network error. Please try again later."
       );
       console.error("Contact Error: ", error);
+    }
+  };
+
+  const handleFileChange = (event, onChange) => {
+    const file = event.target.files[0];
+
+    if (file) {
+      const maxSize = 4 * 1024 * 1024; // 4 MB limit
+
+      if (file.size > maxSize) {
+        alert("File size exceeds 4 MB. Please upload a smaller file.");
+        onChange(null);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Convert the file to Base64 and set it to the form
+        onChange(reader.result);
+        setImagePreview(reader.result); // Set image preview
+      };
+      reader.readAsDataURL(file);
+    } else {
+      // If no file selected, clear the input and preview
+      onChange(null);
+      setImagePreview(null);
     }
   };
 
@@ -228,6 +263,44 @@ function WorkoutForm() {
             )}
           </div>
 
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Select Image
+            </label>
+            <Controller
+              name="image"
+              control={control}
+              defaultValue={null}
+              render={({ field }) => (
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleFileChange(e, field.onChange)} // Handle file change
+                  className="border rounded p-2 w-full"
+                />
+              )}
+            />
+            {errors.image && (
+              <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+                {errors.image.message}
+              </p>
+            )}
+          </div>
+
+          {/* Image Preview */}
+          {imagePreview && (
+            <div className="mb-4">
+              <h3 className="text-sm font-medium text-gray-700 mb-1">
+                Image Preview:
+              </h3>
+              <img
+                src={imagePreview}
+                alt="Image Preview"
+                className="border rounded w-full h-auto" // Adjust width and height as needed
+              />
+            </div>
+          )}
+
           <div>
             <label
               htmlFor="muscles"
@@ -239,7 +312,6 @@ function WorkoutForm() {
               name="muscles"
               control={control}
               defaultValue={null}
-              rules={{ required: "This field is required" }}
               render={({ field }) => (
                 <Select
                   {...field}
@@ -322,7 +394,7 @@ function WorkoutForm() {
               htmlFor="reps"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
-              Duration
+              Reps
             </label>
             <input
               type="number"

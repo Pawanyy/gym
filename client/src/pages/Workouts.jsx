@@ -5,6 +5,7 @@ import appConstants from "../constants.js";
 import { useSelector } from "react-redux";
 import { motion as m } from "framer-motion";
 import { pageTransition, pageVariants } from "../js/animations.js";
+import noImage from "./../assets/noImage.png";
 
 const Workouts = () => {
   const [errorMessage, setErrorMessage] = useState(false);
@@ -75,8 +76,15 @@ const Workouts = () => {
 
 const WorkoutCard = ({ data }) => {
   return (
-    <div className="rounded-2xl border border-gray-200 dark:border-gray-600 p-6 shadow-sm sm:px-8 lg:p-12 hover:shadow-blue-500 hover:border-blue-500/75">
-      <div className="text-left">
+    <div className="rounded-2xl border overflow-y-hidden border-gray-200 dark:border-gray-600shadow-smhover:shadow-blue-500 hover:border-blue-500/75">
+      <div>
+        <img
+          className="w-full"
+          src={data.image ? data.image : noImage}
+          alt="workout image"
+        />
+      </div>
+      <div className="text-left p-8 pt-5">
         <h2 className="text-lg font-medium capitalize text-gray-900 dark:text-gray-200">
           {data?.name}
         </h2>
@@ -98,17 +106,15 @@ const WorkoutCard = ({ data }) => {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             {data?.instructions}
           </p>
+          <div className="mt-6 capitalize text-gray-100 dark:text-white flex space-x-1 space-y-1 text-sm flex-wrap">
+            {data?.muscles?.map((feature, index) => (
+              <span className="px-2 py-1 bg-blue-500 rounded-md" key={index}>
+                {feature}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-
-      <ul className="mt-6 space-y-2">
-        {data?.muscles?.map((feature, index) => (
-          <li className="flex items-center gap-1" key={index}>
-            <HiCheck className="text-green-500" />
-            <span className="text-gray-700 dark:text-gray-400">{feature}</span>
-          </li>
-        ))}
-      </ul>
     </div>
   );
 };

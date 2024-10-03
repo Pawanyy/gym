@@ -146,7 +146,7 @@ function WorkoutPlan() {
                 <th>Title & Description</th>
                 <th>Duration</th>
                 <th>Workout Type</th>
-                <th>targetMuscles</th>
+                <th>Targeted Muscles</th>
                 <th>Created Date</th>
                 <th>Action</th>
               </tr>
