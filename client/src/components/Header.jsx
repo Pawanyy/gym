@@ -73,6 +73,19 @@ function Header() {
                 <li>
                   <div className="text-gray-500 transition dark:text-white dark:hover:text-white/75 hover:text-blue-600 text-base">
                     <NavLink
+                      to="/workouts"
+                      className={({ isActive }) =>
+                        isActive ? "text-blue-500" : ""
+                      }
+                    >
+                      Workouts
+                    </NavLink>
+                  </div>
+                </li>
+
+                <li>
+                  <div className="text-gray-500 transition dark:text-white dark:hover:text-white/75 hover:text-blue-600 text-base">
+                    <NavLink
                       to="/bmi-calculator"
                       className={({ isActive }) =>
                         isActive ? "text-blue-500" : ""

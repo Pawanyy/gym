@@ -19,6 +19,7 @@ import AdminLogin from "./../pages/Admin/AdminLogin.jsx";
 import ProtectedAdminRoute from "./ProtectedAdminRoute ";
 import AdminDashboard from "./../pages/Admin/AdminDashboard.jsx";
 import ProtectAfterAdminLoginRoute from "./ProtectAfterAdminLoginRoute";
+import Workouts from "../pages/Workouts.jsx";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -40,6 +41,7 @@ function AnimatedRoutes() {
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/bmi-calculator" element={<BMI />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/workouts" element={<Workouts />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route element={<ProtectedRoute />}>
