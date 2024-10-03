@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import aboutImage from "../assets/about.jpg?format=webp&w=1440";
 import { HiChevronDown } from "react-icons/hi2";
 import FAQSection from "./../components/FaqSection";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 function About() {
   const FAQs = [
@@ -40,7 +42,14 @@ function About() {
   ];
 
   return (
-    <section className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8"
+    >
       <div className="py-8 px-4 mx-auto max-w-screen">
         <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
           About Us
@@ -79,7 +88,7 @@ function About() {
           <FAQSection faqs={FAQs} />
         </div>
       </div>
-    </section>
+    </m.div>
   );
 }
 

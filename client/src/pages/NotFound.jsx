@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { HiArrowSmallLeft } from "react-icons/hi2";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 function NotFound() {
   const location = useLocation();
@@ -8,7 +10,14 @@ function NotFound() {
   console.log(location);
 
   return (
-    <div className="grid h-screen place-content-center bg-white px-4 dark:bg-gray-900">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="grid h-screen place-content-center bg-white px-4 dark:bg-gray-900"
+    >
       <div className="text-center">
         <h1 className="text-6xl md:text-9xl font-black text-gray-200 dark:text-gray-700">
           404
@@ -29,7 +38,7 @@ function NotFound() {
           </div>
         </Link>
       </div>
-    </div>
+    </m.div>
   );
 }
 

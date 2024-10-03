@@ -5,6 +5,8 @@ import appConstants from "./../constants.js";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Alert from "./../components/Alert";
 import { useSelector } from "react-redux";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 const Checkout = () => {
   const [errorMessage, setErrorMessage] = useState(false);
@@ -111,7 +113,14 @@ const Checkout = () => {
   };
 
   return (
-    <section className="services py-20">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="services py-20"
+    >
       <h1 className="mb-16 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
         Your Cart
       </h1>
@@ -194,7 +203,7 @@ const Checkout = () => {
             )}
         </div>
       </div>
-    </section>
+    </m.div>
   );
 };
 

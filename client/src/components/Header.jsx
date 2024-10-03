@@ -167,14 +167,14 @@ function Header() {
             {!auth.isLoggedIn && (
               <>
                 <Link to="/login">
-                  <div className="rounded-md bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-blue-700">
+                  <div className="rounded-3xl bg-blue-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-blue-700">
                     Login
                   </div>
                 </Link>
 
                 <div className="hidden sm:flex">
                   <Link to="/register">
-                    <div className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75">
+                    <div className="rounded-3xl bg-gray-100 px-5 py-2.5 text-sm font-medium text-blue-600 dark:bg-gray-800 dark:text-white dark:hover:text-white/75">
                       Register
                     </div>
                   </Link>

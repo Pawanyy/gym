@@ -3,6 +3,8 @@ import { FaMale, FaFemale } from "react-icons/fa";
 import BMICalculator from "./../js/BMICalculator.js";
 import Alert from "../components/Alert.jsx";
 import bmiConfig from "../js/bmiConfig.js";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 const constants = {
   CM: "cm",
@@ -267,7 +269,14 @@ const BMI = () => {
   };
 
   return (
-    <section className="services py-20">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="services py-20"
+    >
       <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
         BMI Calculator
       </h1>
@@ -477,26 +486,20 @@ const BMI = () => {
                   weight based on BMI values..
                 </p>
                 <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                  <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
-                    <thead className="text-left">
+                  <table className="table-custom">
+                    <thead>
                       <tr>
-                        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                          Classification
-                        </th>
-                        <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                          BMI range - kg/m2
-                        </th>
+                        <th>Classification</th>
+                        <th>BMI range - kg/m2</th>
                       </tr>
                     </thead>
 
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                      {bmiConfig.categories.map((category) => {
+                    <tbody>
+                      {bmiConfig.categories.map((category, index) => {
                         return (
-                          <tr className="odd:bg-gray-50 dark:odd:bg-gray-800/50">
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                              {category.label}
-                            </td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
+                          <tr key={index}>
+                            <td>{category.label}</td>
+                            <td>
                               {`${category.range[0]} - ${category.range[1]}`}
                             </td>
                           </tr>
@@ -510,7 +513,7 @@ const BMI = () => {
           )}
         </div>
       </div>
-    </section>
+    </m.div>
   );
 };
 

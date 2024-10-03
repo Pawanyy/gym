@@ -3,6 +3,8 @@ import axios from "axios";
 import appConstants from "./../constants.js";
 import { useState } from "react";
 import Alert from "../components/Alert";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 function Contact() {
   const [errorMessage, setErrorMessage] = useState(false);
@@ -51,7 +53,14 @@ function Contact() {
   };
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8"
+    >
       <div className="py-8 px-4 mx-auto max-w-screen-md">
         <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
           Contact Us
@@ -156,7 +165,7 @@ function Contact() {
           </button>
         </form>
       </div>
-    </div>
+    </m.div>
   );
 }
 

@@ -26,6 +26,8 @@ import Workout from "./Workout.jsx";
 import WorkoutForm from "./WorkoutForm.jsx";
 import WorkoutPlan from "./WorkoutPlan.jsx";
 import WorkoutPlanShow from "./WorkoutPlanShow.jsx";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../../js/animations.js";
 
 function Sidebar({ className }) {
   const [tab, setTab] = useState("");
@@ -207,7 +209,14 @@ function AdminDashboard() {
   }, [search]);
 
   return (
-    <div className="flex w-full">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="flex w-full"
+    >
       <Sidebar className="min-w-72 flex-none font-sans antialiased flex min-h-screen flex-col justify-between border-e bg-white dark:bg-gray-900 dark:border-gray-700" />
       <div className="min-h-screen flex-1">
         <div className="h-16 w-full bg-white dark:bg-gray-900 dark:border-gray-800 border-b-2 px-4">
@@ -232,7 +241,7 @@ function AdminDashboard() {
           {tab === "changePassword" && <ChangePassword />}
         </div>
       </div>
-    </div>
+    </m.div>
   );
 }
 

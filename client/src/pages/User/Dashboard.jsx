@@ -17,6 +17,8 @@ import Order from "./Order.jsx";
 import WorkoutPlanForm from "./WorkoutPlanForm.jsx";
 import WorkoutPlan from "./WorkoutPlan.jsx";
 import WorkoutPlanShow from "./WorkoutPlanShow.jsx";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../../js/animations.js";
 
 function Sidebar({ className }) {
   const [tab, setTab] = useState("");
@@ -93,7 +95,7 @@ function Sidebar({ className }) {
               >
                 <span className="flex">
                   <HiCube className="size-5" />
-                  <span className="ms-3">Orders</span>
+                  <span className="ms-3">My Plans</span>
                 </span>
               </Link>
             </li>
@@ -114,7 +116,7 @@ function Sidebar({ className }) {
 
             <li>
               <button
-                className="block rounded-lg px-4 py-2 text-sm font-medium hover:bg-red-50 text-red-500 dark:hover:bg-red-600/10"
+                className="block w-full rounded-lg px-4 py-2 text-sm font-medium hover:bg-red-50 text-red-500 dark:hover:bg-red-600/10"
                 onClick={handleLogout}
               >
                 <span className="flex">
@@ -143,7 +145,14 @@ function Dashboards() {
     console.log("Tab: ", tabFromUrl);
   }, [search]);
   return (
-    <div className="flex w-full">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="flex w-full"
+    >
       <Sidebar className="min-w-72 flex-none font-sans antialiased flex min-h-screen flex-col justify-between border-e bg-white dark:bg-gray-900 dark:border-gray-700" />
       <div className="min-h-screen flex-grow px-4 py-8 sm:px-6 lg:px-8 mb-18">
         {tab === "dash" && <Dash />}
@@ -154,7 +163,7 @@ function Dashboards() {
         {tab === "workoutPlanShow" && <WorkoutPlanShow />}
         {tab === "changePassword" && <ChangePassword />}
       </div>
-    </div>
+    </m.div>
   );
 }
 

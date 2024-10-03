@@ -6,6 +6,8 @@ import appConstants from "./../constants.js";
 import axios from "axios";
 import { useState } from "react";
 import Alert from "../components/Alert.jsx";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 function ForgotPassword() {
   const [errorMessage, setErrorMessage] = useState(false);
@@ -54,7 +56,14 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8"
+    >
       <div className="py-8 px-4 mx-auto max-w-screen-sm lg:px-20">
         <div className="mb-6 flex items-center justify-center">
           <img src={siteLogo} alt="Logo" className="w-[33%]" />
@@ -115,7 +124,7 @@ function ForgotPassword() {
           </div>
         </form>
       </div>
-    </div>
+    </m.div>
   );
 }
 

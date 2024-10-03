@@ -7,6 +7,9 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginAdmin } from "../../store/authSlice.js";
 import Alert from "../../components/Alert.jsx";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../../js/animations.js";
+
 function AdminLogin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -68,7 +71,14 @@ function AdminLogin() {
   };
 
   return (
-    <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-14">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-14"
+    >
       <div className="py-10 px-4 mx-auto max-w-screen-sm lg:px-20">
         <h1 className="my-10 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
           Admin Login
@@ -158,7 +168,7 @@ function AdminLogin() {
           </button>
         </form>
       </div>
-    </div>
+    </m.div>
   );
 }
 

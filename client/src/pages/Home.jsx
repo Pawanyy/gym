@@ -9,6 +9,8 @@ import {
 } from "react-icons/hi";
 import FeatureSection from "../components/FeatureSection";
 import HeroSection from "./../components/HeroSection ";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 function Home() {
   const featuresData = [
@@ -51,7 +53,13 @@ function Home() {
   ];
 
   return (
-    <>
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       <HeroSection
         backgroundImage="https://images.unsplash.com/photo-1706029831405-619b27e3260c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         title="Let us find your"
@@ -70,7 +78,7 @@ function Home() {
           </div>
         }
       />
-    </>
+    </m.div>
   );
 }
 

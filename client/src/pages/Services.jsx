@@ -4,6 +4,8 @@ import { HiCheck } from "react-icons/hi2";
 import appConstants from "./../constants.js";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { motion as m } from "framer-motion";
+import { pageTransition, pageVariants } from "./../js/animations.js";
 
 const Services = () => {
   const [errorMessage, setErrorMessage] = useState(false);
@@ -83,7 +85,14 @@ const Services = () => {
   }, []);
 
   return (
-    <section className="services py-20">
+    <m.div
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="services py-20"
+    >
       <h1 className="mb-16 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
         Our Plans
       </h1>
@@ -100,7 +109,7 @@ const Services = () => {
           ))}
         </div>
       </div>
-    </section>
+    </m.div>
   );
 };
 

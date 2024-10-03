@@ -54,7 +54,7 @@ function Order() {
     <div className="">
       <div className="px-4">
         <h1 className="mb-8 text-4xl tracking-tight font-extrabold text-gray-800 dark:text-white">
-          My Orders
+          My Plans
         </h1>
         <Alert message={errorMessage} type="error" />
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
