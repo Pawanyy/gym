@@ -58,57 +58,33 @@ function Order() {
         </h1>
         <Alert message={errorMessage} type="error" />
         <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-          <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm dark:divide-gray-700 dark:bg-gray-900">
-            <thead className="text-left">
+          <table className="table-custom">
+            <thead>
               <tr>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                  Plan Name
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                  Price
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                  Interval
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                  Payment Status
-                </th>
-                <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                  Date
-                </th>
+                <th>Sr No</th>
+                <th>Plan Name</th>
+                <th>Price</th>
+                <th>Interval</th>
+                <th>Payment Status</th>
+                <th>Date</th>
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody>
               {Object.keys(Orders).length > 0 ? (
                 Orders.records.map((record, index) => (
-                  <tr
-                    key={index}
-                    className="odd:bg-gray-50 dark:odd:bg-gray-800/50"
-                  >
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                      {record.plan.title}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                      {record.price}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900 dark:text-white">
-                      {record.interval}
-                    </td>
-                    <td className="whitespace-nowrap capitalize px-4 py-2 text-gray-700 dark:text-gray-200">
-                      {record.paymentStatus}
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                      {new Date(record.createdAt).toLocaleString()}
-                    </td>
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{record.plan.title}</td>
+                    <td>₹ {record.price}</td>
+                    <td className="capitalize">{record.interval}</td>
+                    <td className="capitalize">{record.paymentStatus}</td>
+                    <td>{new Date(record.createdAt).toLocaleString()}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td
-                    colSpan={5}
-                    className="whitespace-nowrap px-4 py-2 text-center font-medium text-gray-900 dark:text-white"
-                  >
+                  <td colSpan={5} className="text-center">
                     No Data
                   </td>
                 </tr>

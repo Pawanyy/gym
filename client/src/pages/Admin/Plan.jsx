@@ -132,7 +132,7 @@ function Plan() {
     <div className="">
       <div className="px-4 space-y-4">
         <h1 className="mb-8 text-4xl tracking-tight font-extrabold text-gray-800 dark:text-white flex justify-between">
-          <span>Plan</span>
+          <span>Plans</span>
           <Link
             to="/admin/dashboard?tab=planForm"
             className="flex items-center justify-center rounded-md bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-blue-700"
@@ -148,8 +148,7 @@ function Plan() {
             <thead>
               <tr>
                 <th>Sr No</th>
-                <th>Title</th>
-                <th>Description</th>
+                <th>Title & Description</th>
                 <th>Price</th>
                 <th>Interval</th>
                 <th>Features</th>
@@ -163,11 +162,15 @@ function Plan() {
                 records.map((record, index) => (
                   <tr key={index}>
                     <td>{index + 1 + (page - 1) * 10}</td>
-                    <td className="text-nowrap">{record.title}</td>
                     <td>
-                      <p>{record.description}</p>
+                      <div className="text-nowrap font-bold">
+                        {record.title}
+                      </div>
+                      <p className="text-gray-500 dark:text-gray-300">
+                        {record.description}
+                      </p>
                     </td>
-                    <td>{record.price}</td>
+                    <td className="text-nowrap">₹ {record.price}</td>
                     <td className="capitalize">{record.interval}</td>
                     <td className="text-nowrap">
                       {record.features.map((f, i) => (

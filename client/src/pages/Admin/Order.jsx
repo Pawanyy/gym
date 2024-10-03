@@ -130,7 +130,7 @@ function Order() {
     <div className="">
       <div className="px-4 space-y-4">
         <h1 className="mb-8 text-4xl tracking-tight font-extrabold text-gray-800 dark:text-white flex justify-between">
-          <span>Orders</span>
+          <span>Purchases</span>
         </h1>
         <Alert message={errorMessage} type="error" />
         <Alert message={successMessage} type="success" />
@@ -157,7 +157,7 @@ function Order() {
                     <td>
                       <p>{record?.plan?.title}</p>
                     </td>
-                    <td>{record?.price}</td>
+                    <td className="text-nowrap">₹ {record?.price}</td>
                     <td className="capitalize">{record?.interval}</td>
                     <td className="text-nowrap capitalize">
                       {record.paymentStatus}

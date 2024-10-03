@@ -150,12 +150,10 @@ function Workout() {
             <thead>
               <tr>
                 <th>Sr No</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th>Name & Description</th>
                 <th>Muscles</th>
                 <th>Duration</th>
-                <th>Sets</th>
-                <th>Reps</th>
+                <th>Sets X Reps</th>
                 <th>Diffculty</th>
                 <th>Instructions</th>
                 <th>Created Date</th>
@@ -168,18 +166,23 @@ function Workout() {
                 records.map((record, index) => (
                   <tr key={index}>
                     <td>{index + 1 + (page - 1) * 10}</td>
-                    <td className="text-nowrap">{record.name}</td>
-                    <td>{record.description}</td>
+                    <td>
+                      <div className="text-nowrap font-bold">{record.name}</div>
+                      <p className="text-gray-500 dark:text-gray-300">
+                        {record.description}
+                      </p>
+                    </td>
                     <td className="text-nowrap">
                       {record.muscles.map((m, i) => (
-                        <p key={i}>
+                        <p className="capitalize" key={i}>
                           {i + 1}. {m}
                         </p>
                       ))}
                     </td>
                     <td>{record.duration} min</td>
-                    <td>{record.sets}</td>
-                    <td>{record.reps}</td>
+                    <td>
+                      {record.sets} X {record.reps}
+                    </td>
                     <td className="capitalize">{record.difficulty}</td>
                     <td>{record.instructions}</td>
                     <td>{new Date(record.createdAt).toLocaleString()}</td>

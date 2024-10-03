@@ -75,8 +75,7 @@ function WorkoutPlanShow() {
             <thead>
               <tr>
                 <th>Sr No</th>
-                <th>Title</th>
-                <th>Descricption</th>
+                <th>Title & Description</th>
                 <th>Duration</th>
                 <th>Excercises</th>
                 <th>Workout Type</th>
@@ -88,11 +87,17 @@ function WorkoutPlanShow() {
               {Object.keys(workoutPlanData).length > 0 && (
                 <tr>
                   <td>1</td>
-                  <td>{workoutPlanData.title}</td>
-                  <td>{workoutPlanData.descricption}</td>
+                  <td>
+                    <div className="text-nowrap font-bold">
+                      {workoutPlanData.title}
+                    </div>
+                    <p className="text-gray-500 dark:text-gray-300">
+                      {workoutPlanData.description}
+                    </p>
+                  </td>
                   <td>{workoutPlanData.duration}</td>
                   <td>{workoutPlanData.exercises.length}</td>
-                  <td>{workoutPlanData.workoutType}</td>
+                  <td className="capitalize">{workoutPlanData.workoutType}</td>
                   <td>
                     {workoutPlanData?.targetMuscles.map((m, i) => (
                       <p key={i}>
@@ -112,12 +117,10 @@ function WorkoutPlanShow() {
             <thead>
               <tr>
                 <th>Sr No</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th>Name & Description</th>
                 <th>Muscles</th>
                 <th>Duration</th>
-                <th>Sets</th>
-                <th>Reps</th>
+                <th>Sets X Reps</th>
                 <th>Diffculty</th>
                 <th>Instructions</th>
                 <th>Created Date</th>
@@ -129,18 +132,23 @@ function WorkoutPlanShow() {
                 workoutPlanData?.exercises.map((record, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td className="text-nowrap">{record.name}</td>
-                    <td>{record.description}</td>
+                    <td>
+                      <div className="text-nowrap font-bold">{record.name}</div>
+                      <p className="text-gray-500 dark:text-gray-300">
+                        {record.description}
+                      </p>
+                    </td>
                     <td className="text-nowrap">
                       {record.muscles.map((m, i) => (
-                        <p key={i}>
+                        <p className="capitalize" key={i}>
                           {i + 1}. {m}
                         </p>
                       ))}
                     </td>
                     <td>{record.duration} min</td>
-                    <td>{record.sets}</td>
-                    <td>{record.reps}</td>
+                    <td>
+                      {record.sets} X {record.reps}
+                    </td>
                     <td className="capitalize">{record.difficulty}</td>
                     <td>{record.instructions}</td>
                     <td>{new Date(record.createdAt).toLocaleString()}</td>

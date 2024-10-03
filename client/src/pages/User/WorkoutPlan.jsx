@@ -155,8 +155,7 @@ function WorkoutPlan() {
             <thead>
               <tr>
                 <th>Sr No</th>
-                <th>Name</th>
-                <th>Description</th>
+                <th>Title & Description</th>
                 <th>Duration</th>
                 <th>Workout Type</th>
                 <th>targetMuscles</th>
@@ -170,14 +169,20 @@ function WorkoutPlan() {
                 records.map((record, index) => (
                   <tr key={index}>
                     <td>{index + 1 + (page - 1) * 10}</td>
-                    <td className="text-nowrap">{record.title}</td>
-                    <td>{record.description}</td>
+                    <td>
+                      <div className="text-nowrap font-bold">
+                        {record.title}
+                      </div>
+                      <p className="text-gray-500 dark:text-gray-300">
+                        {record.description}
+                      </p>
+                    </td>
 
                     <td>{record?.duration} min</td>
-                    <td>{record?.workoutType}</td>
+                    <td className="capitalize">{record?.workoutType}</td>
                     <td className="text-nowrap">
                       {record?.targetMuscles?.map((m, i) => (
-                        <p key={i}>
+                        <p className="capitalize" key={i}>
                           {i + 1}. {m}
                         </p>
                       ))}

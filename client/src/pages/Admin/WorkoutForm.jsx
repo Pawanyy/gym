@@ -1,10 +1,21 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Alert from "../../components/Alert.jsx";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import appConstants from "../../constants.js";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import Select from "react-select";
+
+const diffOptions = appConstants.DIFFICULTY.map((value) => ({
+  value: value,
+  label: value.charAt(0).toUpperCase() + value.slice(1),
+}));
+
+const muscleoptions = appConstants.MUSCLE_ENUMS.map((value) => ({
+  value: value,
+  label: value.charAt(0).toUpperCase() + value.slice(1),
+}));
 
 function WorkoutForm() {
   const [editData, setEditData] = useState(false);
@@ -17,6 +28,7 @@ function WorkoutForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
     reset,
   } = useForm();
@@ -62,7 +74,23 @@ function WorkoutForm() {
         }
         console.log("Load successful", data);
         setEditData(data);
-        reset(data);
+
+        const selectedDifficulty = diffOptions.find(
+          (opt) => opt.value === data.difficulty
+        );
+
+        const selectedMuscles = data.muscles
+          .map((value) => {
+            const option = muscleoptions.find((opt) => opt.value === value);
+            return option || null;
+          })
+          .filter(Boolean);
+
+        reset({
+          ...data,
+          difficulty: selectedDifficulty,
+          muscles: selectedMuscles,
+        });
       } catch (error) {
         setErrorMessage("Network error. Please try again later.");
         console.error("Profile Error: ", error);
@@ -79,15 +107,27 @@ function WorkoutForm() {
     try {
       const method = editData ? "patch" : "post";
 
+      const selectedDifficulty = formData?.difficulty?.value;
+
+      const selectedMuscles = formData?.muscles?.map((opt) => {
+        return opt?.value ? opt.value : opt;
+      });
+
+      const payload = {
+        ...formData,
+        difficulty: selectedDifficulty,
+        muscles: selectedMuscles || [],
+      };
+
       if (typeof formData?.muscles === "string") {
-        formData.muscles = formData.muscles.split(",")?.map((m) => m?.trim());
+        payload.muscles = formData.muscles.split(",")?.map((m) => m?.trim());
       }
 
       const response = await axios[method](
         `${appConstants.SERVER_URL}/api/workouts${
           editData ? `/${editData?._id}` : ""
         }`,
-        formData,
+        payload,
         {
           headers: {
             Authorization: `Bearer ${auth?.tokenInfo?.token}`,
@@ -193,19 +233,22 @@ function WorkoutForm() {
               htmlFor="muscles"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
-              Muscles [seperated by (,) comma]
+              Muscles
             </label>
-            <textarea
-              id="muscles"
-              placeholder="biceps"
-              {...register("muscles", {
-                required: "Muscles is required",
-              })}
-              className={`shadow-sm bg-gray-50 border ${
-                errors.muscles
-                  ? "border-red-500"
-                  : "border-gray-300 dark:border-gray-600"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light`}
+            <Controller
+              name="muscles"
+              control={control}
+              defaultValue={null}
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={muscleoptions}
+                  isMulti
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                />
+              )}
             />
             {errors.muscles && (
               <p className="mt-2 text-sm text-red-600 dark:text-red-500">
@@ -338,22 +381,20 @@ function WorkoutForm() {
             >
               Difficulty
             </label>
-            <select
-              id="difficulty"
-              placeholder="(123) 456-7890"
-              {...register("difficulty", {
-                required: "Difficulty is required",
-              })}
-              className={`shadow-sm bg-gray-50 border ${
-                errors.difficulty
-                  ? "border-red-500"
-                  : "border-gray-300 dark:border-gray-600"
-              } text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 dark:text-white dark:shadow-sm-light`}
-            >
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
+            <Controller
+              name="difficulty"
+              control={control}
+              defaultValue={null}
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  options={diffOptions}
+                  className="basic-select"
+                  classNamePrefix="select"
+                />
+              )}
+            />
             {errors.difficulty && (
               <p className="mt-2 text-sm text-red-600 dark:text-red-500">
                 {errors.difficulty.message}

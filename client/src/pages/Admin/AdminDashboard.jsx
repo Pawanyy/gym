@@ -130,7 +130,7 @@ function Sidebar({ className }) {
               >
                 <span className="flex">
                   <HiDocumentText className="size-5" />
-                  <span className="ms-3">Plan</span>
+                  <span className="ms-3">Plans</span>
                 </span>
               </Link>
             </li>
@@ -144,7 +144,7 @@ function Sidebar({ className }) {
               >
                 <span className="flex">
                   <HiCube className="size-5" />
-                  <span className="ms-3">Orders</span>
+                  <span className="ms-3">Purchases</span>
                 </span>
               </Link>
             </li>
