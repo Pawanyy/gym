@@ -1,16 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { HiCheck } from "react-icons/hi2";
 import appConstants from "../constants.js";
 import { useSelector } from "react-redux";
 import { motion as m } from "framer-motion";
 import { pageTransition, pageVariants } from "../js/animations.js";
 import noImage from "./../assets/noImage.png";
+import Alert from "./../components/Alert";
 
 const Workouts = () => {
   const [errorMessage, setErrorMessage] = useState(false);
   const [WorkoutList, setServicePlan] = useState([]);
-  const [Orders, setOrders] = useState([]);
 
   const auth = useSelector((state) => state.auth);
 
@@ -63,6 +62,7 @@ const Workouts = () => {
       <h1 className="mb-16 text-4xl tracking-tight font-extrabold text-center text-gray-800 dark:text-white">
         Workouts
       </h1>
+      <Alert message={errorMessage} type="error" />
       <div className="mx-auto max-w-4xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-4 md:px-8 lg:px-0">
           {WorkoutList.map((workout, index) => (
